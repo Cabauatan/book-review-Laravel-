@@ -14,27 +14,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Book::factory(33)->create()->each(function ($book)
+        Book::factory(10)->create()->each(function ($book)
         {
-            $num = random_int(5,30);
+            $num = random_int(5,10);
             Review::factory()->count($num)
             ->good()
             ->for($book)
             ->create();
         });
 
-        Book::factory(33)->create()->each(function ($book)
+        Book::factory(10)->create()->each(function ($book)
         {
-            $num = random_int(5,30);
+            $num = random_int(5,10);
             Review::factory()->count($num)
             ->average()
             ->for($book)
             ->create();
         });
 
-        Book::factory(34)->create()->each(function ($book)
+        Book::factory(11)->create()->each(function ($book)
         {
-            $num = random_int(5,30);
+            $num = random_int(5,11);
             Review::factory()->count($num)
             ->bad()
             ->for($book)

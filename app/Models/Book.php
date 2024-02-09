@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+
 class Book extends Model
 {
     use HasFactory,SoftDeletes;
@@ -21,6 +22,7 @@ class Book extends Model
     {
         return $query->withCount(['reviews' => function (Builder $q) use ($from , $to ) {$this->dateFilter($q,$from,$to);}])
             ->orderBy('reviews_count', 'desc');
+            
     }
 
     public function scopeHighestRated(Builder $query,$from = null,$to = null): Builder
@@ -59,30 +61,26 @@ class Book extends Model
 
     public function scopePopularLastMonth(Builder $query): Builder
     {
-        return $query->popular(now()->subMonth(),now())
-            ->highestRated(now()->subMonth(),now())
-            ->minReviews(2);
+        return $query->popular(now()->subMonth(), now())
+            ->highestRated(now()->subMonth(), now());
     }
 
-    public function scopePopularLast6Month(Builder $query): Builder
+    public function scopePopularLast6Months(Builder $query): Builder
     {
-        return $query->popular(now()->subMonths(6),now())
-            ->highestRated(now()->subMonths(6),now())
-            ->minReviews(5);
+        return $query->popular(now()->subMonths(6), now())
+        ->highestRated(now()->subMonths(6), now());
     }
 
-    public function scopeHighestRateLastMonth(Builder $query): Builder
+    public function scopeHighestRatedLastMonth(Builder $query): Builder
     {
-        return $query->highestRated(now()->subMonth(),now())
-            ->popular(now()->subMonth(),now())
-            ->minReviews(2);
+        return $query->highestRated(now()->subMonth(), now())
+            ->popular(now()->subMonth(), now());
     }
 
-    public function scopeHighestRateLast6Month(Builder $query): Builder
+    public function scopeHighestRatedLast6Months(Builder $query): Builder
     {
-        return $query->highestRated(now()->subMonths(6),now())
-            ->popular(now()->subMonths(6),now())
-            ->minReviews(5);
+        return $query->highestRated(now()->subMonths(6), now())
+            ->popular(now()->subMonths(6), now());
     }
 
     

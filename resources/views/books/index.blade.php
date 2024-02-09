@@ -28,7 +28,6 @@
       </a>
     @endforeach
   </div>
-
   <ul>
     @forelse ($books as $book)
       <li class="mb-4">
