@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -57,7 +58,13 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        return view('books.show',['book' =>$book->load(['reviews'=>fn($query)=> $query->latest()])]);
+        cache()->forget('book:' . $book->id);
+        $cacheKey = 'book:'.$book->id;
+        
+        $book = cache()->remember($cacheKey, 3600 , fn()=> $book->load(['reviews'=>fn($query)=> $query->latest()]));
+      
+        return view('books.show',['book' => $book]);
+        // return view('books.show',['book' =>$book->load(['reviews'=>fn($query)=> $query->latest()])]);
     }
 
     /**
