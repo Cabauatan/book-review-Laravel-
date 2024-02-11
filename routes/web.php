@@ -20,7 +20,7 @@ Route::get('/', function () {
 });
 
 Route::resource('books', BookController::class)
-->only(['index', 'show']);
+->only(['index', 'show', 'create','store', 'destroy']);
 
 Route::resource('books.reviews', ReviewController::class)
 ->scoped(['review' => 'book'])

@@ -31,12 +31,11 @@ class BookController extends Controller
             default => $books->latest()->withAvgRating()->withReviewsCount(),
         };
         $cacheKey = 'books:' . $filter . ':' . $title;
-        // cache()->forget($cacheKey);
 
         $books = 
-        cache()->remember($cacheKey, 3600 , fn()=> 
-        $books->get()
-    ); 
+        // cache()->remember($cacheKey, 3600 , fn()=> 
+        $books->get();
+    // ); 
 
         return view('books.index', ['books'=>$books]);
     }
@@ -46,15 +45,22 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view('books.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request,Book $book)
     {
-        //
+        $validate = $request->validate([
+            'title' => 'required|string|min:5',
+            'author' => 'required|string|min:5',
+        ]);
+
+        $book->create($validate);
+
+        return redirect()->route('books.index');
     }
 
     /**

@@ -7,6 +7,7 @@
     <input type="text" name="title" placeholder="Search by Title" value="{{request('title')}}" class="input h-10"/>
     <button type="submit" class="btn h-10">Search</button>
     <a href="{{ route('books.index')}}" class="btn h-10">Clear</a>
+    <a href="{{ route('books.create')}}" class="btn h-10">Add</a>
 
   </form>
 
