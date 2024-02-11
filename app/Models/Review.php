@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Review extends Model
 {
     use HasFactory,SoftDeletes;
-      protected $fillable = ['review', 'rating'];
-    // protected $guarded = [];
+    //   protected $fillable = ['review', 'rating'];
+    protected $guarded = [];
 
     public function book()
     {
@@ -18,6 +18,7 @@ class Review extends Model
     }
     protected static function booted()
     {
-        static::updated(function (Review $review) {cache()->forget('book:' . $review->book_id);});
+        self::updated(function (Review $review) {cache()->forget('book:' . $review->book_id);});
+        self::deleted(function (Review $review) {cache()->forget('book:' . $review->book_id);});
     }
 }
