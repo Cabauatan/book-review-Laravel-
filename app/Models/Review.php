@@ -20,5 +20,6 @@ class Review extends Model
     {
         self::updated(function (Review $review) {cache()->forget('book:' . $review->book_id);});
         self::deleted(function (Review $review) {cache()->forget('book:' . $review->book_id);});
+        self::created(function (Review $review) {cache()->forget('book:' . $review->book_id);});
     }
 }

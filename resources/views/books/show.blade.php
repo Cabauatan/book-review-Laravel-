@@ -18,6 +18,14 @@
     </div>
   </div>
 
+  <div class="mb-4">
+    <a href="{{ route('books.index', $book) }}" class="btn ">
+      Back</a>
+    <a href="{{ route('books.reviews.create', $book) }}" class="btn">
+      Add a review!</a>
+     
+  </div>
+
   <div>
     <h2 class="mb-4 text-xl font-semibold">Reviews</h2>
     <ul>
