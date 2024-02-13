@@ -22,7 +22,7 @@ class Review extends Model
             function (Review $review) {cache()->forget('book:' . $review->book_id);}
         );
         self::deleted(
-            function (Review $review) {cache()->forget('book:' . $review->book_id);}
+            fn (Review $review) => cache()->forget('book:' . $review->book_id)
     );
         self::created(
             fn () =>cache()->flush()
