@@ -107,5 +107,8 @@ class Book extends Model
         self::deleted(
             function (Book $book) {cache()->forget('book:' . $book->id);
             });
+        self::creating(
+            fn () =>cache()->flush()
+        );
     }
 }

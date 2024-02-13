@@ -18,8 +18,14 @@ class Review extends Model
     }
     protected static function booted()
     {
-        self::updated(function (Review $review) {cache()->forget('book:' . $review->book_id);});
-        self::deleted(function (Review $review) {cache()->forget('book:' . $review->book_id);});
-        self::created(function (Review $review) {cache()->forget('book:' . $review->book_id);});
+        self::updated(
+            function (Review $review) {cache()->forget('book:' . $review->book_id);}
+        );
+        self::deleted(
+            function (Review $review) {cache()->forget('book:' . $review->book_id);}
+    );
+        self::created(
+            fn () =>cache()->flush()
+    );
     }
 }
